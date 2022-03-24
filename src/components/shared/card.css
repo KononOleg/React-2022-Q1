@@ -1,0 +1,105 @@
+.card {
+  max-width: 1600px;
+  position: relative;
+  margin: 0 auto;
+}
+.card__wrapper {
+  display: flex;
+  position: relative;
+}
+.card-image__container {
+  padding-bottom: 55%;
+}
+.card-details__logo {
+  margin-bottom: 30px;
+}
+.card__image {
+  position: absolute;
+  right: -1%;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.card__details {
+  position: relative;
+  max-width: 800px;
+  width: 100%;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: linear-gradient(
+    to right,
+    #181818 10%,
+    rgba(23, 23, 23, 0.98) 20%,
+    rgba(23, 23, 23, 0.97) 25%,
+    rgba(23, 23, 23, 0.95) 35%,
+    rgba(23, 23, 23, 0.94) 40%,
+    rgba(23, 23, 23, 0.92) 45%,
+    rgba(23, 23, 23, 0.9) 50%,
+    rgba(23, 23, 23, 0.87) 55%,
+    rgba(23, 23, 23, 0.82) 60%,
+    rgba(23, 23, 23, 0.75) 65%,
+    rgba(23, 23, 23, 0.63) 70%,
+    rgba(23, 23, 23, 0.45) 75%,
+    rgba(23, 23, 23, 0.27) 80%,
+    rgba(23, 23, 23, 0.15) 85%,
+    rgba(23, 23, 23, 0.08) 90%,
+    rgba(23, 23, 23, 0.03) 95%,
+    rgba(23, 23, 23, 0) 100%
+  );
+}
+.card-details__wrapper {
+  width: 65%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+}
+
+.card-details__title {
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: 700;
+}
+.card-details__description {
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 400;
+}
+.card-details__info {
+  display: flex;
+  gap: 10px;
+}
+.card-info__text {
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 500;
+  color: #a3a3a3;
+  padding-right: 10px;
+}
+.card-info__text:not(:last-child) {
+  border-right: 1px solid #a3a3a3;
+}
+
+.card-talent__wrapper {
+  display: flex;
+  gap: 5px;
+}
+.card-talent__info {
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 400;
+  margin: 0;
+}
+
+.card-talent__label {
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 400;
+  color: #a3a3a3;
+}
