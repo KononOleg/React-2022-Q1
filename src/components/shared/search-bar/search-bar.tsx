@@ -21,7 +21,6 @@ export class SearchBar extends React.Component<MyProps, MyState> {
   }
 
   render() {
-    const searchActive = this.state.searchActive;
     return (
       <div className="search-bar__wrapper">
         <div

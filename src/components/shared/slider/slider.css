@@ -1,0 +1,13 @@
+.slider {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+}
+.slider__wrapper {
+  max-width: 1600px;
+  overflow: hidden;
+}
+.slider__inner {
+  display: flex;
+  transition: 0.3s;
+}
