@@ -5,7 +5,7 @@ interface IProps {
   title: string;
   year: string;
   age: string;
-  season: string;
+  duration: string;
   genre: string;
   description: string;
   cast: string;
@@ -28,7 +28,7 @@ export const Card = (props: IProps) => {
             <div className="card-details__info">
               <span className="card-info__text">{props.year}</span>
               <span className="card-info__text">{props.age}</span>
-              <span className="card-info__text">{props.season}</span>
+              <span className="card-info__text">{props.duration}</span>
               <span className="card-info__text">{props.genre}</span>
             </div>
             <p className="card-details__description">{props.description}</p>
@@ -37,10 +37,14 @@ export const Card = (props: IProps) => {
                 <span className="card-talent__label">В ролях:</span>
                 <p className="card-talent__info">{props.cast}</p>
               </div>
-              <div className="card-talent__wrapper">
-                <span className="card-talent__label">Создатели:</span>
-                <p className="card-talent__info">{props.creators}</p>
-              </div>
+              {props.creators ? (
+                <div className="card-talent__wrapper">
+                  <span className="card-talent__label">Создатели:</span>
+                  <p className="card-talent__info">{props.creators}</p>
+                </div>
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </div>

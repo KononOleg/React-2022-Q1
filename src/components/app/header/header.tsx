@@ -6,7 +6,7 @@ export const Header = () => {
   return (
     <header className="header">
       <div className="header__wrapper">
-        {routes.map(({ path, name }) => (
+        {routes.map(({ path, name }, index) => (
           <NavLink
             className={(navData: { isActive: any }) =>
               navData.isActive
@@ -14,6 +14,7 @@ export const Header = () => {
                 : "header__link"
             }
             to={path}
+            key={index}
           >
             {name}
           </NavLink>

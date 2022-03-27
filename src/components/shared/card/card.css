@@ -12,7 +12,7 @@
   padding-bottom: 55%;
 }
 .card-details__logo {
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 }
 .card__image {
   position: absolute;
@@ -90,6 +90,7 @@
 .card-talent__wrapper {
   display: flex;
   gap: 5px;
+  margin-bottom: 50px;
 }
 .card-talent__info {
   font-size: 16px;
