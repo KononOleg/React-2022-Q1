@@ -10,7 +10,7 @@ export const ErrorPage = () => {
           Нам не удалось найти эту страницу. Но на главной странице есть еще
           много всего интересного.
         </p>
-        <Link className="error-page__button" to={"/main"}>
+        <Link className="error-page__button" to={"/"}>
           Главная страница
         </Link>
         <div className="error-code__container">

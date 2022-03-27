@@ -19,3 +19,7 @@
   cursor: pointer;
   text-decoration: none;
 }
+.header__link_active {
+  font-weight: 700;
+  pointer-events: none;
+}
