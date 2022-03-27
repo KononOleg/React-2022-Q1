@@ -20,6 +20,14 @@ export class SearchBar extends React.Component<MyProps, MyState> {
     this.setState({ value: event.target.value });
   }
 
+  componentDidMount() {
+    this.setState({ value: localStorage.test });
+  }
+
+  componentWillUnmount() {
+    localStorage.test = this.state.value;
+  }
+
   render() {
     return (
       <div className="search-bar__wrapper">
