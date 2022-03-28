@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import "./error-page.css";
+import { Link } from 'react-router-dom';
+import './error-page.css';
 
 export const ErrorPage = () => {
   return (
@@ -7,10 +7,10 @@ export const ErrorPage = () => {
       <div className="error-page__wrapper">
         <h2 className="error-page__title">Не можете найти?</h2>
         <p className="error-page__subtitle">
-          Нам не удалось найти эту страницу. Но на главной странице есть еще
-          много всего интересного.
+          Нам не удалось найти эту страницу. Но на главной странице есть еще много всего
+          интересного.
         </p>
-        <Link className="error-page__button" to={"/"}>
+        <Link className="error-page__button" to={'/'}>
           Главная страница
         </Link>
         <div className="error-code__container">

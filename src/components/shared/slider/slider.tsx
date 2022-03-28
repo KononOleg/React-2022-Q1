@@ -1,17 +1,14 @@
-import "./slider.css";
-import { cards } from "../card/cards";
-import { Card } from "../card/card";
-import React from "react";
-import { ArrowButton } from "./components/arrow-button/arrow-button";
-
-interface MyProps {}
+import './slider.css';
+import { cards } from '../card/cards';
+import { Card } from '../card/card';
+import React from 'react';
+import { ArrowButton } from './components/arrow-button/arrow-button';
 
 interface MyState {
   cardActive: number;
 }
-
-export class Slider extends React.Component<MyProps, MyState> {
-  constructor(props: any) {
+export class Slider extends React.Component<unknown, MyState> {
+  constructor(props: unknown) {
     super(props);
     this.state = { cardActive: 0 };
     this.handleLeftArrowClick = this.handleLeftArrowClick.bind(this);

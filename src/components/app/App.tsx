@@ -1,8 +1,8 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { ErrorPage } from "../pages/error-page/error-page";
-import "./App.css";
-import { Header } from "./header/header";
-import { routes } from "./routes";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { ErrorPage } from '../pages/error-page/error-page';
+import './App.css';
+import { Header } from './header/header';
+import { routes } from './routes';
 
 export const App = () => {
   return (

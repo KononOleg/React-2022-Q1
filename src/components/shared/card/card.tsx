@@ -1,4 +1,4 @@
-import "./card.css";
+import './card.css';
 
 interface IProps {
   logo: string;
@@ -19,11 +19,7 @@ export const Card = (props: IProps) => {
       <div className="card__wrapper">
         <div className="card__details">
           <div className="card-details__wrapper">
-            <img
-              className="card-details__logo"
-              src={props.logo}
-              alt={props.title}
-            />
+            <img className="card-details__logo" src={props.logo} alt={props.title} />
             <h2 className="card-details__title">{props.title}</h2>
             <div className="card-details__info">
               <span className="card-info__text">{props.year}</span>
@@ -43,7 +39,7 @@ export const Card = (props: IProps) => {
                   <p className="card-talent__info">{props.creators}</p>
                 </div>
               ) : (
-                ""
+                ''
               )}
             </div>
           </div>
