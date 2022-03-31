@@ -1,6 +1,6 @@
 import './slider.css';
-import { cards } from '../card/cards';
-import { Card } from '../card/card';
+import { cards } from '../../../../shared/card/cards';
+import { Card } from '../../../../shared/card/card';
 import React from 'react';
 import { ArrowButton } from './components/arrow-button/arrow-button';
 

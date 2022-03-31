@@ -19,11 +19,11 @@ export class SearchBar extends React.Component<unknown, MyState> {
   }
 
   componentDidMount() {
-    this.setState({ value: localStorage.test });
+    this.setState({ value: localStorage.value });
   }
 
   componentWillUnmount() {
-    localStorage.test = this.state.value;
+    localStorage.value = this.state.value;
   }
 
   render() {
@@ -41,13 +41,13 @@ export class SearchBar extends React.Component<unknown, MyState> {
             className={`search-bar__input ${
               this.state.searchActive ? '' : 'search-bar__input_disabled'
             }`}
-            value={this.state.value}
+            value={this.state.value || ''}
             onChange={this.handleChange}
           />
           <img
             className={`search-bar__cancel ${
               this.state.searchActive ? '' : 'search-bar__cancel_disabled'
-            }  ${this.state.value.length === 0 ? '' : 'search-bar__cancel_visible'}`}
+            }  ${this.state.value == '' ? '' : 'search-bar__cancel_visible'}`}
             onClick={() => this.setState({ value: '' })}
             src="icons/cancel.png"
             alt="cancel"
