@@ -1,0 +1,11 @@
+.form-page__wrapper {
+  max-width: 1200px;
+  padding: 20px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  min-height: calc(100vh - 50px);
+  box-sizing: border-box;
+}
