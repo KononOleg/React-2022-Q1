@@ -5,8 +5,10 @@ export interface IStateInput {
 
 export interface IState {
   Name: IStateInput;
+  Date: IStateInput;
 }
 
 export const state = {
   Name: { isError: false, Message: '' },
+  Date: { isError: false, Message: '' },
 };

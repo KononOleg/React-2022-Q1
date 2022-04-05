@@ -1,18 +1,20 @@
 import React from 'react';
+import { InputData } from './components/input/data/data';
 import { InputText } from './components/input/text/text';
 import './form.css';
 import { IState, IStateInput, state } from './state';
-import { validationLength } from './validation';
+import { validationEmpty, validationLength } from './validation';
 
 export class Form extends React.Component<unknown, IState> {
   Name: React.RefObject<HTMLInputElement>;
+  Date: React.RefObject<HTMLInputElement>;
   constructor(props: unknown) {
     super(props);
-    this.state = state;
+    this.state = { ...state };
     this.Name = React.createRef();
+    this.Date = React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
     this.setStateValue = this.setStateValue.bind(this);
-    this.resetError = this.resetError.bind(this);
   }
 
   handleSubmit(event: React.SyntheticEvent) {
@@ -20,14 +22,17 @@ export class Form extends React.Component<unknown, IState> {
 
     //Name
     validationLength(this.Name.current?.value as string, 'Name', this.setStateValue, 3);
+
+    //Dat
+    validationEmpty(this.Date.current?.value as string, 'Date', this.setStateValue);
   }
 
   setStateValue(value: IStateInput, input: string) {
-    this.setState({ ...this.state, [input]: { ...value } });
+    this.setState({ [input]: { ...value } } as unknown as IState);
   }
 
   resetError(input: string) {
-    this.setState({ ...this.state, [input]: { isError: false, Message: '' } });
+    this.setState({ [input]: { isError: false, Message: '' } } as unknown as IState);
   }
 
   render() {
@@ -39,6 +44,14 @@ export class Form extends React.Component<unknown, IState> {
           errorMessage={this.state.Name.Message}
           isError={this.state.Name.isError}
           OnChange={() => this.resetError('Name')}
+        />
+
+        <InputData
+          label="Data"
+          inputRef={this.Date}
+          errorMessage={this.state.Date.Message}
+          isError={this.state.Date.isError}
+          OnChange={() => this.resetError('Date')}
         />
         <input type="submit" value="Отправить" />
       </form>

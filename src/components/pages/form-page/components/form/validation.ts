@@ -17,6 +17,14 @@ export const validationLength = (
     );
 };
 
+export const validationEmpty = (
+  inputValue: string,
+  input: string,
+  setState: (value: IStateInput, input: string) => void
+) => {
+  if (!inputValue) setStateValue(input, `String cannot be empty`, setState);
+};
+
 const setStateValue = (
   input: string,
   Message: string,

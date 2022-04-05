@@ -1,3 +1,9 @@
 .form__wrapper {
   width: 100%;
+  background: black;
+  padding: 20px;
+
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
