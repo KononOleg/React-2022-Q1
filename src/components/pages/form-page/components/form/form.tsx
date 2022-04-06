@@ -31,14 +31,40 @@ export class Form extends React.Component<unknown, IState> {
 
   handleSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
+
+    if (this.isValid()) {
+      console.log('valid');
+    } else {
+      console.log('invalid');
+    }
+  }
+  isValid() {
     //Name
-    validationLength(this.Name.current?.value as string, 'Name', this.setStateValue, 3);
+    const isNameValid = validationLength(
+      this.Name.current?.value as string,
+      'Name',
+      this.setStateValue,
+      3
+    );
     //Date
-    validationEmpty(this.Date.current?.value as string, 'Date', this.setStateValue);
+    const isEmptyValid = validationEmpty(
+      this.Date.current?.value as string,
+      'Date',
+      this.setStateValue
+    );
     //Checkbox
-    validationChecked(this.Checkbox.current?.checked as boolean, 'Checkbox', this.setStateValue);
+    const isCheckedValid = validationChecked(
+      this.Checkbox.current?.checked as boolean,
+      'Checkbox',
+      this.setStateValue
+    );
     //File
-    validationFile(this.File.current?.files?.length as number, 'File', this.setStateValue);
+    const isFileValid = validationFile(
+      this.File.current?.files?.length as number,
+      'File',
+      this.setStateValue
+    );
+    return isNameValid && isEmptyValid && isCheckedValid && isFileValid;
   }
 
   setStateValue(value: IStateInput, input: string) {
@@ -100,7 +126,17 @@ export class Form extends React.Component<unknown, IState> {
             OnChange={() => this.resetError('Checkbox')}
           />
         </div>
-        <input type="submit" className="form__submit" value="Submit" />
+        <input
+          type="submit"
+          className="form__submit"
+          value="Submit"
+          disabled={
+            this.state.Name.isError &&
+            this.state.Date.isError &&
+            this.state.Checkbox.isError &&
+            this.state.File.isError
+          }
+        />
       </form>
     );
   }

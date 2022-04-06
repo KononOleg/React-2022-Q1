@@ -7,14 +7,16 @@ export const validationLength = (
   minLenght: number,
   maxLength?: number
 ) => {
-  if (inputValue.length < minLenght || inputValue.length > (maxLength || Infinity))
-    setStateValue(
-      input,
-      `The string length cannot be less than ${minLenght} ${
-        maxLength !== undefined ? `and more than ${maxLength}` : ''
-      }`,
-      setState
-    );
+  if (inputValue.length >= minLenght && inputValue.length <= (maxLength || Infinity)) return true;
+
+  setStateValue(
+    input,
+    `The string length cannot be less than ${minLenght} ${
+      maxLength !== undefined ? `and more than ${maxLength}` : ''
+    }`,
+    setState
+  );
+  return false;
 };
 
 export const validationEmpty = (
@@ -22,7 +24,9 @@ export const validationEmpty = (
   input: string,
   setState: (value: IStateInput, input: string) => void
 ) => {
-  if (!inputValue) setStateValue(input, `String cannot be empty`, setState);
+  if (inputValue) return true;
+  setStateValue(input, `String cannot be empty`, setState);
+  return false;
 };
 
 export const validationChecked = (
@@ -30,7 +34,10 @@ export const validationChecked = (
   input: string,
   setState: (value: IStateInput, input: string) => void
 ) => {
-  if (!inputChecked) setStateValue(input, `Confirm to sending`, setState);
+  if (inputChecked) return true;
+
+  setStateValue(input, `Confirm to sending`, setState);
+  return false;
 };
 
 export const validationFile = (
@@ -38,7 +45,9 @@ export const validationFile = (
   input: string,
   setState: (value: IStateInput, input: string) => void
 ) => {
-  if (length === 0) setStateValue(input, `Select a file`, setState);
+  if (length !== 0) return true;
+  setStateValue(input, `Select a file`, setState);
+  return false;
 };
 
 const setStateValue = (
