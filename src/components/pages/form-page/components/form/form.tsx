@@ -18,7 +18,7 @@ export class Form extends React.Component<unknown, IState> {
   File: React.RefObject<HTMLInputElement>;
   constructor(props: unknown) {
     super(props);
-    this.state = { ...state };
+    this.state = state;
     this.Name = React.createRef();
     this.Date = React.createRef();
     this.Select = React.createRef();
@@ -52,53 +52,55 @@ export class Form extends React.Component<unknown, IState> {
   render() {
     return (
       <form onSubmit={this.handleSubmit} className="form__wrapper">
-        <InputText
-          label="Name"
-          inputRef={this.Name}
-          errorMessage={this.state.Name.Message}
-          isError={this.state.Name.isError}
-          OnChange={() => this.resetError('Name')}
-        />
-        <InputData
-          label="Data"
-          inputRef={this.Date}
-          errorMessage={this.state.Date.Message}
-          isError={this.state.Date.isError}
-          OnChange={() => this.resetError('Date')}
-        />
-        <InputSelect
-          label="City"
-          inputRef={this.Select}
-          errorMessage={this.state.Select.Message}
-          isError={this.state.Select.isError}
-          OnChange={() => this.resetError('Select')}
-          options={[
-            { value: 'Minas Tirith', label: 'Minas Tirith' },
-            { value: 'Minas Morgul', label: 'Minas Morgul' },
-          ]}
-        />
-        <InputFile
-          label="File"
-          inputRef={this.File}
-          errorMessage={this.state.File.Message}
-          isError={this.state.File.isError}
-          OnChange={() => this.resetError('File')}
-        />
-        <InputSwitcher
-          label="Switcher"
-          inputRef={this.Switcher}
-          errorMessage={this.state.Switcher.Message}
-          isError={this.state.Switcher.isError}
-          OnChange={() => this.resetError('Switcher')}
-        />
-        <InputCheckbox
-          label="Agreement"
-          inputRef={this.Checkbox}
-          errorMessage={this.state.Checkbox.Message}
-          isError={this.state.Checkbox.isError}
-          OnChange={() => this.resetError('Checkbox')}
-        />
-        <input type="submit" value="Отправить" />
+        <div className="form-input__wrapper">
+          <InputText
+            label="Name"
+            inputRef={this.Name}
+            errorMessage={this.state.Name.Message}
+            isError={this.state.Name.isError}
+            OnChange={() => this.resetError('Name')}
+          />
+          <InputData
+            label="Data"
+            inputRef={this.Date}
+            errorMessage={this.state.Date.Message}
+            isError={this.state.Date.isError}
+            OnChange={() => this.resetError('Date')}
+          />
+          <InputSelect
+            label="City"
+            inputRef={this.Select}
+            errorMessage={this.state.Select.Message}
+            isError={this.state.Select.isError}
+            OnChange={() => this.resetError('Select')}
+            options={[
+              { value: 'Minas Tirith', label: 'Minas Tirith' },
+              { value: 'Minas Morgul', label: 'Minas Morgul' },
+            ]}
+          />
+          <InputFile
+            label="File"
+            inputRef={this.File}
+            errorMessage={this.state.File.Message}
+            isError={this.state.File.isError}
+            OnChange={() => this.resetError('File')}
+          />
+          <InputSwitcher
+            label="Switcher"
+            inputRef={this.Switcher}
+            errorMessage={this.state.Switcher.Message}
+            isError={this.state.Switcher.isError}
+            OnChange={() => this.resetError('Switcher')}
+          />
+          <InputCheckbox
+            label="Agreement"
+            inputRef={this.Checkbox}
+            errorMessage={this.state.Checkbox.Message}
+            isError={this.state.Checkbox.isError}
+            OnChange={() => this.resetError('Checkbox')}
+          />
+        </div>
+        <input type="submit" className="form__submit" value="Submit" />
       </form>
     );
   }

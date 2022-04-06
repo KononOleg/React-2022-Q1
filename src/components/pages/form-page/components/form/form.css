@@ -2,9 +2,32 @@
   width: 100%;
   background: black;
   padding: 20px;
-
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.form-input__wrapper {
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 20px;
+}
+
+.form__submit {
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 24px 0 12px;
+  background: #e50914;
+  color: white;
+  padding: 16px;
+  border: 0;
+  width: 300px;
+  cursor: pointer;
+}
+.form__submit:disabled {
+  cursor: auto;
+  background: #420206;
 }
