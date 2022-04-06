@@ -8,6 +8,7 @@ export interface IState {
   Date: IStateInput;
   Select: IStateInput;
   Checkbox: IStateInput;
+  File: IStateInput;
 }
 
 export const state = {
@@ -15,4 +16,5 @@ export const state = {
   Date: { isError: false, Message: '' },
   Select: { isError: false, Message: '' },
   Checkbox: { isError: false, Message: '' },
+  File: { isError: false, Message: '' },
 };

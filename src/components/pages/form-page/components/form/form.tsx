@@ -1,17 +1,19 @@
 import React from 'react';
 import { InputCheckbox } from './components/input/checkbox/checkbox';
 import { InputData } from './components/input/data/data';
+import { InputFile } from './components/input/file/file';
 import { InputSelect } from './components/input/select/select';
 import { InputText } from './components/input/text/text';
 import './form.css';
 import { IState, IStateInput, state } from './state';
-import { validationChecked, validationEmpty, validationLength } from './validation';
+import { validationChecked, validationEmpty, validationFile, validationLength } from './validation';
 
 export class Form extends React.Component<unknown, IState> {
   Name: React.RefObject<HTMLInputElement>;
   Date: React.RefObject<HTMLInputElement>;
   Select: React.RefObject<HTMLSelectElement>;
   Checkbox: React.RefObject<HTMLInputElement>;
+  File: React.RefObject<HTMLInputElement>;
   constructor(props: unknown) {
     super(props);
     this.state = { ...state };
@@ -19,6 +21,7 @@ export class Form extends React.Component<unknown, IState> {
     this.Date = React.createRef();
     this.Select = React.createRef();
     this.Checkbox = React.createRef();
+    this.File = React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
     this.setStateValue = this.setStateValue.bind(this);
   }
@@ -34,6 +37,10 @@ export class Form extends React.Component<unknown, IState> {
 
     //Checkbox
     validationChecked(this.Checkbox.current?.checked as boolean, 'Checkbox', this.setStateValue);
+
+    //File
+    validationFile(this.File.current?.files?.length as number, 'File', this.setStateValue);
+    console.log(this.File.current?.files?.length);
   }
 
   setStateValue(value: IStateInput, input: string) {
@@ -71,6 +78,13 @@ export class Form extends React.Component<unknown, IState> {
             { value: 'Minas Tirith', label: 'Minas Tirith' },
             { value: 'Minas Morgul', label: 'Minas Morgul' },
           ]}
+        />
+        <InputFile
+          label="File"
+          inputRef={this.File}
+          errorMessage={this.state.File.Message}
+          isError={this.state.File.isError}
+          OnChange={() => this.resetError('File')}
         />
         <InputCheckbox
           label="Agreement"

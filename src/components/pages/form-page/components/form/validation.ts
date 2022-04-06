@@ -33,6 +33,14 @@ export const validationChecked = (
   if (!inputChecked) setStateValue(input, `Confirm to sending`, setState);
 };
 
+export const validationFile = (
+  length: number,
+  input: string,
+  setState: (value: IStateInput, input: string) => void
+) => {
+  if (length === 0) setStateValue(input, `Select a file`, setState);
+};
+
 const setStateValue = (
   input: string,
   Message: string,
