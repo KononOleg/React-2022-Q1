@@ -9,6 +9,7 @@ export interface IState {
   Select: IStateInput;
   Checkbox: IStateInput;
   File: IStateInput;
+  Switcher: IStateInput;
 }
 
 export const state = {
@@ -17,4 +18,5 @@ export const state = {
   Select: { isError: false, Message: '' },
   Checkbox: { isError: false, Message: '' },
   File: { isError: false, Message: '' },
+  Switcher: { isError: false, Message: '' },
 };

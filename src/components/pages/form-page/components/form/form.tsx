@@ -1,18 +1,20 @@
 import React from 'react';
+import './form.css';
 import { InputCheckbox } from './components/input/checkbox/checkbox';
 import { InputData } from './components/input/data/data';
 import { InputFile } from './components/input/file/file';
 import { InputSelect } from './components/input/select/select';
 import { InputText } from './components/input/text/text';
-import './form.css';
 import { IState, IStateInput, state } from './state';
 import { validationChecked, validationEmpty, validationFile, validationLength } from './validation';
+import { InputSwitcher } from './components/input/switcher/switcher';
 
 export class Form extends React.Component<unknown, IState> {
   Name: React.RefObject<HTMLInputElement>;
   Date: React.RefObject<HTMLInputElement>;
   Select: React.RefObject<HTMLSelectElement>;
   Checkbox: React.RefObject<HTMLInputElement>;
+  Switcher: React.RefObject<HTMLInputElement>;
   File: React.RefObject<HTMLInputElement>;
   constructor(props: unknown) {
     super(props);
@@ -21,6 +23,7 @@ export class Form extends React.Component<unknown, IState> {
     this.Date = React.createRef();
     this.Select = React.createRef();
     this.Checkbox = React.createRef();
+    this.Switcher = React.createRef();
     this.File = React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
     this.setStateValue = this.setStateValue.bind(this);
@@ -28,19 +31,14 @@ export class Form extends React.Component<unknown, IState> {
 
   handleSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
-
     //Name
     validationLength(this.Name.current?.value as string, 'Name', this.setStateValue, 3);
-
     //Date
     validationEmpty(this.Date.current?.value as string, 'Date', this.setStateValue);
-
     //Checkbox
     validationChecked(this.Checkbox.current?.checked as boolean, 'Checkbox', this.setStateValue);
-
     //File
     validationFile(this.File.current?.files?.length as number, 'File', this.setStateValue);
-    console.log(this.File.current?.files?.length);
   }
 
   setStateValue(value: IStateInput, input: string) {
@@ -85,6 +83,13 @@ export class Form extends React.Component<unknown, IState> {
           errorMessage={this.state.File.Message}
           isError={this.state.File.isError}
           OnChange={() => this.resetError('File')}
+        />
+        <InputSwitcher
+          label="Switcher"
+          inputRef={this.Switcher}
+          errorMessage={this.state.Switcher.Message}
+          isError={this.state.Switcher.isError}
+          OnChange={() => this.resetError('Switcher')}
         />
         <InputCheckbox
           label="Agreement"
