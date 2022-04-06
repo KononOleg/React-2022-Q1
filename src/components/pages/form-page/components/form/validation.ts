@@ -11,7 +11,7 @@ export const validationLength = (
     setStateValue(
       input,
       `The string length cannot be less than ${minLenght} ${
-        maxLength !== Infinity ? `and more than ${maxLength}` : ''
+        maxLength !== undefined ? `and more than ${maxLength}` : ''
       }`,
       setState
     );
@@ -23,6 +23,14 @@ export const validationEmpty = (
   setState: (value: IStateInput, input: string) => void
 ) => {
   if (!inputValue) setStateValue(input, `String cannot be empty`, setState);
+};
+
+export const validationChecked = (
+  inputChecked: boolean,
+  input: string,
+  setState: (value: IStateInput, input: string) => void
+) => {
+  if (!inputChecked) setStateValue(input, `Confirm to sending`, setState);
 };
 
 const setStateValue = (

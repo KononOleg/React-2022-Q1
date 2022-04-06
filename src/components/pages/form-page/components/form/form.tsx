@@ -1,21 +1,24 @@
 import React from 'react';
+import { InputCheckbox } from './components/input/checkbox/checkbox';
 import { InputData } from './components/input/data/data';
 import { InputSelect } from './components/input/select/select';
 import { InputText } from './components/input/text/text';
 import './form.css';
 import { IState, IStateInput, state } from './state';
-import { validationEmpty, validationLength } from './validation';
+import { validationChecked, validationEmpty, validationLength } from './validation';
 
 export class Form extends React.Component<unknown, IState> {
   Name: React.RefObject<HTMLInputElement>;
   Date: React.RefObject<HTMLInputElement>;
   Select: React.RefObject<HTMLSelectElement>;
+  Checkbox: React.RefObject<HTMLInputElement>;
   constructor(props: unknown) {
     super(props);
     this.state = { ...state };
     this.Name = React.createRef();
     this.Date = React.createRef();
     this.Select = React.createRef();
+    this.Checkbox = React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
     this.setStateValue = this.setStateValue.bind(this);
   }
@@ -28,6 +31,9 @@ export class Form extends React.Component<unknown, IState> {
 
     //Date
     validationEmpty(this.Date.current?.value as string, 'Date', this.setStateValue);
+
+    //Checkbox
+    validationChecked(this.Checkbox.current?.checked as boolean, 'Checkbox', this.setStateValue);
   }
 
   setStateValue(value: IStateInput, input: string) {
@@ -65,6 +71,13 @@ export class Form extends React.Component<unknown, IState> {
             { value: 'Minas Tirith', label: 'Minas Tirith' },
             { value: 'Minas Morgul', label: 'Minas Morgul' },
           ]}
+        />
+        <InputCheckbox
+          label="Agreement"
+          inputRef={this.Checkbox}
+          errorMessage={this.state.Checkbox.Message}
+          isError={this.state.Checkbox.isError}
+          OnChange={() => this.resetError('Checkbox')}
         />
         <input type="submit" value="Отправить" />
       </form>
