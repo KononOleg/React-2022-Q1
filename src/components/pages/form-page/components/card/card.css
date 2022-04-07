@@ -1,0 +1,16 @@
+.form-card__wrapper {
+  background: black;
+  padding: 20px;
+  min-width: 200px;
+}
+.form-card__title {
+  color: white;
+  font-size: 20px;
+}
+.form-card__text {
+  color: rgb(138, 138, 138);
+}
+.form-card__img {
+  width: 300px;
+  height: auto;
+}

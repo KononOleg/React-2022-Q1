@@ -16,7 +16,7 @@ interface IProps {
     Select: string,
     Checkbox: boolean,
     Switcher: boolean,
-    File: string
+    File: FileList
   ) => void;
 }
 
@@ -49,7 +49,7 @@ export class Form extends React.Component<IProps, IState> {
         this.Select.current?.value as string,
         this.Checkbox.current?.checked as boolean,
         this.Switcher.current?.checked as boolean,
-        this.File.current?.value as string
+        this.File.current?.files as FileList
       );
       this.resetValue();
     }
