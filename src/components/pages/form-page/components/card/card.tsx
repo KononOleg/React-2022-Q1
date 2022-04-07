@@ -13,7 +13,12 @@ export interface IProps {
 export const FormCard: React.FC<IProps> = ({ name, date, city, switcher, agreement, img }) => {
   return (
     <div className="form-card__wrapper">
-      <img className="form-card__img" src={img} alt="img" />
+      <div
+        className="form-card__img"
+        style={{
+          backgroundImage: `url("${img}")`,
+        }}
+      ></div>
       <p className="form-card__title">
         Name: <span className="card__text">{name}</span>
       </p>

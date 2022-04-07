@@ -43,7 +43,7 @@ export class FormPage extends React.Component<unknown, IState> {
   }
 
   componentDidMount() {
-    const cards = JSON.parse(localStorage.getItem('cards') as string);
+    const cards = JSON.parse(localStorage.getItem('cards') as string) || [];
     this.setState({
       cards: cards,
     });

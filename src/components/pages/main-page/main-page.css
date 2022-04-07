@@ -7,7 +7,7 @@
 }
 .search-bar__contain {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   width: 100%;
   max-width: 1200px;
   padding: 0 100px;
