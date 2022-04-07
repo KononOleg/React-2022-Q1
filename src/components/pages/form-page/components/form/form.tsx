@@ -156,9 +156,9 @@ export class Form extends React.Component<IProps, IState> {
           className="form__submit"
           value="Submit"
           disabled={
-            this.state.Name.isError &&
-            this.state.Date.isError &&
-            this.state.Checkbox.isError &&
+            this.state.Name.isError ||
+            this.state.Date.isError ||
+            this.state.Checkbox.isError ||
             this.state.File.isError
           }
         />

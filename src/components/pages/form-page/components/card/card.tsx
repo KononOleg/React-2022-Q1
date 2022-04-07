@@ -1,7 +1,7 @@
 import React from 'react';
 import './card.css';
 
-interface IProps {
+export interface IProps {
   name: string;
   date: string;
   city: string;
