@@ -9,14 +9,25 @@ import { IState, IStateInput, state } from './state';
 import { validationChecked, validationEmpty, validationFile, validationLength } from './validation';
 import { InputSwitcher } from './components/input/switcher/switcher';
 
-export class Form extends React.Component<unknown, IState> {
+interface IProps {
+  createCard: (
+    Name: string,
+    Date: string,
+    Select: string,
+    Checkbox: boolean,
+    Switcher: boolean,
+    File: string
+  ) => void;
+}
+
+export class Form extends React.Component<IProps, IState> {
   Name: React.RefObject<HTMLInputElement>;
   Date: React.RefObject<HTMLInputElement>;
   Select: React.RefObject<HTMLSelectElement>;
   Checkbox: React.RefObject<HTMLInputElement>;
   Switcher: React.RefObject<HTMLInputElement>;
   File: React.RefObject<HTMLInputElement>;
-  constructor(props: unknown) {
+  constructor(props: IProps) {
     super(props);
     this.state = state;
     this.Name = React.createRef();
@@ -31,12 +42,26 @@ export class Form extends React.Component<unknown, IState> {
 
   handleSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
-
     if (this.isValid()) {
-      console.log('valid');
-    } else {
-      console.log('invalid');
+      this.props.createCard(
+        this.Name.current?.value as string,
+        this.Date.current?.value as string,
+        this.Select.current?.value as string,
+        this.Checkbox.current?.checked as boolean,
+        this.Switcher.current?.checked as boolean,
+        this.File.current?.value as string
+      );
+      this.resetValue();
     }
+  }
+
+  resetValue() {
+    if (this.Name.current) this.Name.current.value = '';
+    if (this.Date.current) this.Date.current.value = '';
+    if (this.Select.current) this.Select.current.selectedIndex = 0;
+    if (this.Checkbox.current) this.Checkbox.current.checked = false;
+    if (this.Switcher.current) this.Switcher.current.checked = false;
+    if (this.File.current) this.File.current.value = '';
   }
   isValid() {
     //Name
