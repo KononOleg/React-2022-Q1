@@ -1,4 +1,9 @@
-.api-page__wrapper {
+.api-page {
   background-color: white;
   min-height: calc(100vh - 50px);
+}
+
+.api-page__wrapper {
+  max-width: 1300px;
+  margin: 0 auto;
 }
