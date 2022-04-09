@@ -31,6 +31,9 @@ export class SearchBar extends React.Component<IProps, unknown> {
             className="search-bar-api__input"
             placeholder="Найти фильм, сериал, персону......"
             ref={this.input}
+            onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) =>
+              e.key === 'Enter' && this.handleSubmit
+            }
           />
           <input type="submit" className="search-bar-api__submit" value="Search" />
         </form>
