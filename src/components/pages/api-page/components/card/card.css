@@ -1,0 +1,44 @@
+.card-api__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  border: 1px solid #e3e3e3;
+  border-radius: 8px;
+  width: 180px;
+  height: 370px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
+  background-color: #fff;
+}
+.card-api__img {
+  width: 180px;
+  height: 270px;
+  border-radius: 8px 8px 0 0;
+}
+
+.card-api__img:hover {
+  cursor: pointer;
+}
+.card-api__content {
+  width: 100%;
+  padding: 26px 10px 12px 10px;
+  display: flex;
+  flex-direction: column;
+}
+.card-api__title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #000;
+  margin: 0;
+  margin-bottom: 3px;
+}
+.card-api__title:hover {
+  color: rgba(1, 180, 228, 1);
+  cursor: pointer;
+}
+
+.card-api__date {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.6);
+}

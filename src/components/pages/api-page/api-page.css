@@ -7,3 +7,9 @@
   max-width: 1300px;
   margin: 0 auto;
 }
+.api-cards__container {
+  padding-top: 30px;
+  display: flex;
+  gap: 41px;
+  flex-wrap: wrap;
+}
