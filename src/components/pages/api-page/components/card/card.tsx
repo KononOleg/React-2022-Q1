@@ -25,6 +25,7 @@ export class CardApi extends React.Component<ICard, IState> {
           <img
             className="card-api__img"
             src={`https://www.themoviedb.org/t/p/w220_and_h330_face/${poster_path}`}
+            onClick={() => this.setState({ isStateActive: true })}
           />
           <div className="card-api__content">
             <h2 className="card-api__title" onClick={() => this.setState({ isStateActive: true })}>

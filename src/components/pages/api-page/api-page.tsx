@@ -2,8 +2,9 @@ import React from 'react';
 import './api-page.css';
 import { CardApi } from './components/card/card';
 import { Load } from './components/load/load';
+import { NotFound } from './components/not-found/not-found';
 import { SearchBar } from './components/search-bar/search-bar';
-import { getPopularMovie } from './shared/api';
+import { getPopularMovie, getSearch } from './shared/api';
 
 export interface ICard {
   id: string;
@@ -24,7 +25,11 @@ export class ApiPage extends React.Component<unknown, IState> {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit(input: string) {}
+  async handleSubmit(input: string) {
+    this.setState({ isLoad: true });
+    const response = await getSearch(input);
+    this.setState({ isLoad: false, cards: response.results });
+  }
 
   async componentDidMount() {
     this.setState({ isLoad: true });
@@ -39,12 +44,14 @@ export class ApiPage extends React.Component<unknown, IState> {
           <SearchBar handleSubmit={this.handleSubmit} />
           {this.state.isLoad ? (
             <Load />
-          ) : (
+          ) : this.state.cards.length !== 0 ? (
             <div className="api-cards__container">
               {this.state.cards.map((card: ICard) => (
                 <CardApi {...card} key={card.id} />
               ))}
             </div>
+          ) : (
+            <NotFound />
           )}
         </div>
       </div>

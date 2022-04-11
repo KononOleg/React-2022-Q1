@@ -18,5 +18,6 @@ export const getSearch = async (q: string) => {
     `${URL}/search/movie?api_key=${API_KEY}&query=${q}&language=en-US&page=1`
   );
   const data = await response.json();
-  return data;
+  if (data.result === undefined) return { results: [] };
+  else return data;
 };
