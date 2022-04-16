@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import './api-page.css';
 import { CardApi } from './components/card/card';
 import { Load } from './components/load/load';
@@ -13,48 +13,43 @@ export interface ICard {
   release_date: string;
 }
 
-interface IState {
-  isLoad: boolean;
-  cards: ICard[];
-}
+export const ApiPage = () => {
+  const [isLoad, setIsLoad] = useState<boolean>(false);
+  const [cards, setCards] = useState<ICard[]>([]);
 
-export class ApiPage extends React.Component<unknown, IState> {
-  constructor(props: unknown) {
-    super(props);
-    this.state = { isLoad: false, cards: [] };
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  useEffect(() => {
+    const fetchDate = async () => {
+      setIsLoad(true);
+      const response = await getPopularMovie();
+      setCards(response.results);
+      setIsLoad(false);
+    };
+    fetchDate();
+  }, []);
 
-  async handleSubmit(input: string) {
-    this.setState({ isLoad: true });
+  const handleSubmit = async (input: string) => {
+    setIsLoad(true);
     const response = await getSearch(input);
-    this.setState({ isLoad: false, cards: response.results });
-  }
+    setCards(response);
+    setIsLoad(false);
+  };
 
-  async componentDidMount() {
-    this.setState({ isLoad: true });
-    const response = await getPopularMovie();
-    this.setState({ isLoad: false, cards: response.results });
-  }
-
-  render() {
-    return (
-      <div className="api-page">
-        <div className="api-page__wrapper">
-          <SearchBar handleSubmit={this.handleSubmit} />
-          {this.state.isLoad ? (
-            <Load />
-          ) : this.state.cards.length !== 0 ? (
-            <div className="api-cards__container">
-              {this.state.cards.map((card: ICard) => (
-                <CardApi {...card} key={card.id} />
-              ))}
-            </div>
-          ) : (
-            <NotFound />
-          )}
-        </div>
+  return (
+    <div className="api-page">
+      <div className="api-page__wrapper">
+        <SearchBar handleSubmit={handleSubmit} />
+        {isLoad ? (
+          <Load />
+        ) : cards.length !== 0 ? (
+          <div className="api-cards__container">
+            {cards.map((card: ICard) => (
+              <CardApi {...card} key={card.id} />
+            ))}
+          </div>
+        ) : (
+          <NotFound />
+        )}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
