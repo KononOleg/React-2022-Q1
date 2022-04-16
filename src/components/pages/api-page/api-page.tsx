@@ -28,7 +28,7 @@ export class ApiPage extends React.Component<unknown, IState> {
   async handleSubmit(input: string) {
     this.setState({ isLoad: true });
     const response = await getSearch(input);
-    this.setState({ isLoad: false, cards: response.results });
+    this.setState({ isLoad: false, cards: response });
   }
 
   async componentDidMount() {
