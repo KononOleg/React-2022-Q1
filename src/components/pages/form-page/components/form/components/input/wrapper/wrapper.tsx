@@ -1,17 +1,17 @@
+import { FieldError } from 'react-hook-form';
 import './wrapper.css';
 
 interface IProps {
   label: string;
-  errorMessage: string;
-  isError: boolean;
+  error: FieldError | undefined;
 }
 
-export const InputWrapper: React.FC<IProps> = ({ label, errorMessage, children, isError }) => {
+export const InputWrapper: React.FC<IProps> = ({ label, error, children }) => {
   return (
-    <div className={`${'input__wrapper'} ${isError ? 'input__wrapper_error' : ''}`}>
+    <div className={`${'input__wrapper'} ${error ? 'input__wrapper_error' : ''}`}>
       <p className="input__label">{label}</p>
       {children}
-      {isError ? <p className="input__error">{errorMessage}</p> : ''}
+      {error ? <p className="input__error">{error.message}</p> : ''}
     </div>
   );
 };

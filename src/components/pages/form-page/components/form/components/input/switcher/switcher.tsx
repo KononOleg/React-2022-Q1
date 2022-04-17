@@ -1,33 +1,22 @@
 import React from 'react';
+import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
 import { InputWrapper } from '../wrapper/wrapper';
 import './switcher.css';
 
 interface IProps {
+  register: UseFormRegisterReturn;
   label: string;
-  errorMessage: string;
-  isError: boolean;
-  inputRef: React.RefObject<HTMLInputElement>;
-  OnChange: () => void;
+  errors: { [key: string]: FieldError | undefined };
 }
 
-export const InputSwitcher: React.FC<IProps> = ({
-  label,
-  errorMessage,
-  isError,
-  inputRef,
-  OnChange,
-}) => {
+export const InputSwitcher: React.FC<IProps> = ({ register, label, errors }) => {
+  const error = errors[register.name];
   return (
-    <InputWrapper {...{ label, errorMessage, isError }}>
+    <InputWrapper {...{ label, error }}>
       <div className="switch__wrapper">
         <p>No</p>
         <label className="input-switch">
-          <input
-            type="checkbox"
-            className="input-switch__checkbox"
-            ref={inputRef}
-            onChange={OnChange}
-          />
+          <input type="checkbox" className="input-switch__checkbox" />
           <span className="input-switch__slider"></span>
         </label>
         <p>Yes</p>

@@ -1,168 +1,78 @@
 import React from 'react';
 import './form.css';
 import { InputCheckbox } from './components/input/checkbox/checkbox';
-import { InputData } from './components/input/data/data';
+import { InputDate } from './components/input/date/date';
 import { InputFile } from './components/input/file/file';
 import { InputSelect } from './components/input/select/select';
 import { InputText } from './components/input/text/text';
-import { IState, IStateInput, state } from './state';
-import { validationChecked, validationEmpty, validationFile, validationLength } from './validation';
 import { InputSwitcher } from './components/input/switcher/switcher';
+import { useForm } from 'react-hook-form';
+
+export interface MyInputTypes {
+  Name: string;
+  Date: string;
+  File: FileList;
+  Select: string;
+  Switcher: boolean;
+  Checkbox: boolean;
+}
 
 interface IProps {
-  createCard: (
-    Name: string,
-    Date: string,
-    Select: string,
-    Checkbox: boolean,
-    Switcher: boolean,
-    File: FileList
-  ) => void;
+  createCard: (data: MyInputTypes) => void;
 }
 
-export class Form extends React.Component<IProps, IState> {
-  Name: React.RefObject<HTMLInputElement>;
-  Date: React.RefObject<HTMLInputElement>;
-  Select: React.RefObject<HTMLSelectElement>;
-  Checkbox: React.RefObject<HTMLInputElement>;
-  Switcher: React.RefObject<HTMLInputElement>;
-  File: React.RefObject<HTMLInputElement>;
-  constructor(props: IProps) {
-    super(props);
-    this.state = state;
-    this.Name = React.createRef();
-    this.Date = React.createRef();
-    this.Select = React.createRef();
-    this.Checkbox = React.createRef();
-    this.Switcher = React.createRef();
-    this.File = React.createRef();
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.setStateValue = this.setStateValue.bind(this);
-  }
+export const Form: React.FC<IProps> = ({ createCard }) => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<MyInputTypes>();
+  const onSubmit = (data: MyInputTypes) => {
+    createCard(data);
+    reset();
+  };
 
-  handleSubmit(event: React.SyntheticEvent) {
-    event.preventDefault();
-    if (this.isValid()) {
-      this.props.createCard(
-        this.Name.current?.value as string,
-        this.Date.current?.value as string,
-        this.Select.current?.value as string,
-        this.Checkbox.current?.checked as boolean,
-        this.Switcher.current?.checked as boolean,
-        this.File.current?.files as FileList
-      );
-      this.resetValue();
-    }
-  }
-
-  resetValue() {
-    if (this.Name.current) this.Name.current.value = '';
-    if (this.Date.current) this.Date.current.value = '';
-    if (this.Select.current) this.Select.current.selectedIndex = 0;
-    if (this.Checkbox.current) this.Checkbox.current.checked = false;
-    if (this.Switcher.current) this.Switcher.current.checked = false;
-    if (this.File.current) this.File.current.value = '';
-  }
-  isValid() {
-    //Name
-    const isNameValid = validationLength(
-      this.Name.current?.value as string,
-      'Name',
-      this.setStateValue,
-      3
-    );
-    //Date
-    const isEmptyValid = validationEmpty(
-      this.Date.current?.value as string,
-      'Date',
-      this.setStateValue
-    );
-    //Checkbox
-    const isCheckedValid = validationChecked(
-      this.Checkbox.current?.checked as boolean,
-      'Checkbox',
-      this.setStateValue
-    );
-    //File
-    const isFileValid = validationFile(
-      this.File.current?.files?.length as number,
-      'File',
-      this.setStateValue
-    );
-    return isNameValid && isEmptyValid && isCheckedValid && isFileValid;
-  }
-
-  setStateValue(value: IStateInput, input: string) {
-    this.setState({ [input]: { ...value } } as unknown as IState);
-  }
-
-  resetError(input: string) {
-    this.setState({ [input]: { isError: false, Message: '' } } as unknown as IState);
-  }
-
-  render() {
-    return (
-      <form onSubmit={this.handleSubmit} className="form__wrapper">
-        <div className="form-input__wrapper">
-          <InputText
-            label="Name"
-            inputRef={this.Name}
-            errorMessage={this.state.Name.Message}
-            isError={this.state.Name.isError}
-            OnChange={() => this.resetError('Name')}
-          />
-          <InputData
-            label="Data"
-            inputRef={this.Date}
-            errorMessage={this.state.Date.Message}
-            isError={this.state.Date.isError}
-            OnChange={() => this.resetError('Date')}
-          />
-          <InputSelect
-            label="City"
-            inputRef={this.Select}
-            errorMessage={this.state.Select.Message}
-            isError={this.state.Select.isError}
-            OnChange={() => this.resetError('Select')}
-            options={[
-              { value: 'Minas Tirith', label: 'Minas Tirith' },
-              { value: 'Minas Morgul', label: 'Minas Morgul' },
-            ]}
-          />
-          <InputFile
-            label="File"
-            inputRef={this.File}
-            errorMessage={this.state.File.Message}
-            isError={this.state.File.isError}
-            OnChange={() => this.resetError('File')}
-          />
-          <InputSwitcher
-            label="Switcher"
-            inputRef={this.Switcher}
-            errorMessage={this.state.Switcher.Message}
-            isError={this.state.Switcher.isError}
-            OnChange={() => this.resetError('Switcher')}
-          />
-          <InputCheckbox
-            label="Agreement"
-            inputRef={this.Checkbox}
-            errorMessage={this.state.Checkbox.Message}
-            isError={this.state.Checkbox.isError}
-            OnChange={() => this.resetError('Checkbox')}
-          />
-        </div>
-        <input
-          type="submit"
-          className="form__submit"
-          value="Submit"
-          disabled={
-            this.state.Name.isError ||
-            this.state.Date.isError ||
-            this.state.Checkbox.isError ||
-            this.state.File.isError
-          }
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} className="form__wrapper">
+      <div className="form-input__wrapper">
+        <InputText
+          label="Name"
+          errors={errors}
+          register={register('Name', {
+            required: 'Name cannot be empty',
+            maxLength: { value: 15, message: 'The string length cannot be more than 15' },
+            minLength: { value: 3, message: 'The string length cannot be less than 3' },
+          })}
         />
-      </form>
-    );
-  }
-}
+        <InputDate
+          label="Date"
+          errors={errors}
+          register={register('Date', { required: 'Date cannot be empty' })}
+        />
+        <InputFile
+          label="File"
+          errors={errors}
+          register={register('File', { required: 'File cannot be empty' })}
+        />
+        <InputSelect
+          label="Select"
+          errors={errors}
+          register={register('Select', { required: 'File cannot be empty' })}
+          options={[
+            { value: 'Minas Tirith', label: 'Minas Tirith' },
+            { value: 'Minas Morgul', label: 'Minas Morgul' },
+          ]}
+        />
+        <InputSwitcher label="Switcher" errors={errors} register={register('Switcher')} />
+        <InputCheckbox
+          label="Checkbox"
+          errors={errors}
+          register={register('Checkbox', { required: 'Checkbox must be checked' })}
+        />
+      </div>
+
+      <input type="submit" className="form__submit" value="Submit" />
+    </form>
+  );
+};

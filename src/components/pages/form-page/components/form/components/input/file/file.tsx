@@ -1,30 +1,23 @@
 import React from 'react';
+import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
 import { InputWrapper } from '../wrapper/wrapper';
 import './file.css';
 
 interface IProps {
+  register: UseFormRegisterReturn;
   label: string;
-  errorMessage: string;
-  isError: boolean;
-  inputRef: React.RefObject<HTMLInputElement>;
-  OnChange: () => void;
+  errors: { [key: string]: FieldError | undefined };
 }
 
-export const InputFile: React.FC<IProps> = ({
-  label,
-  errorMessage,
-  isError,
-  inputRef,
-  OnChange,
-}) => {
+export const InputFile: React.FC<IProps> = ({ register, label, errors }) => {
+  const error = errors[register.name];
   return (
-    <InputWrapper {...{ label, errorMessage, isError }}>
+    <InputWrapper {...{ label, error }}>
       <input
         type="file"
         className="input-file"
+        {...register}
         accept="image/png, image/gif, image/jpeg"
-        ref={inputRef}
-        onChange={OnChange}
       />
     </InputWrapper>
   );

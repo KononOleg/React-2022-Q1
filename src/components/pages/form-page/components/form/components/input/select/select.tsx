@@ -1,4 +1,5 @@
 import React from 'react';
+import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
 import { InputWrapper } from '../wrapper/wrapper';
 import './select.css';
 
@@ -8,25 +9,17 @@ interface IOption {
 }
 
 interface IProps {
+  register: UseFormRegisterReturn;
   label: string;
-  errorMessage: string;
-  isError: boolean;
-  inputRef: React.RefObject<HTMLSelectElement>;
-  OnChange: () => void;
   options: IOption[];
+  errors: { [key: string]: FieldError | undefined };
 }
 
-export const InputSelect: React.FC<IProps> = ({
-  label,
-  errorMessage,
-  isError,
-  inputRef,
-  OnChange,
-  options,
-}) => {
+export const InputSelect: React.FC<IProps> = ({ register, label, errors, options }) => {
+  const error = errors[register.name];
   return (
-    <InputWrapper {...{ label, errorMessage, isError, options }}>
-      <select className="input-select" ref={inputRef} onChange={OnChange}>
+    <InputWrapper {...{ label, error }}>
+      <select className="input-select" {...register}>
         {options.map((select: IOption, key) => (
           <option value={select.value} key={key}>
             {select.label}

@@ -1,27 +1,13 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import { FormCard, IProps as Icard } from './components/card/card';
-import { Form } from './components/form/form';
+import { Form, MyInputTypes } from './components/form/form';
 import './form-page.css';
 
-interface IState {
-  cards: Icard[];
-}
+export const FormPage = () => {
+  const [cards, setCards] = useState<Icard[]>([]);
 
-export class FormPage extends React.Component<unknown, IState> {
-  constructor(props: unknown) {
-    super(props);
-    this.state = { cards: [] };
-    this.createCard = this.createCard.bind(this);
-  }
-
-  createCard(
-    Name: string,
-    Date: string,
-    Select: string,
-    Checkbox: boolean,
-    Switcher: boolean,
-    File: FileList
-  ) {
+  const createCard = (data: MyInputTypes) => {
+    const { Name, Date, File, Select, Switcher, Checkbox } = data;
     const fReader = new FileReader();
     fReader.readAsDataURL(File[0] as Blob);
     fReader.onloadend = (event) => {
@@ -30,36 +16,29 @@ export class FormPage extends React.Component<unknown, IState> {
         name: Name,
         date: Date,
         city: Select,
-        switcher: Checkbox,
-        agreement: Switcher,
+        switcher: Switcher,
+        agreement: Checkbox,
         img: img,
       };
-      const cards = [...this.state.cards, card];
-      localStorage.setItem('cards', JSON.stringify(cards));
-      this.setState({
-        cards: cards,
-      });
+      const updatedCards = [...cards, card];
+      localStorage.setItem('cards', JSON.stringify(updatedCards));
+      setCards(updatedCards);
     };
-  }
-
-  componentDidMount() {
+  };
+  useEffect(() => {
     const cards = JSON.parse(localStorage.getItem('cards') as string) || [];
-    this.setState({
-      cards: cards,
-    });
-  }
+    setCards(cards);
+  }, []);
 
-  render() {
-    return (
-      <div className="form-page__wrapper">
-        <Form createCard={this.createCard} />
+  return (
+    <div className="form-page__wrapper">
+      <Form createCard={createCard} />
 
-        <div className="form-page-cards__wrapper">
-          {this.state.cards.map((card: Icard, key: number) => (
-            <FormCard {...card} key={key} />
-          ))}
-        </div>
+      <div className="form-page-cards__wrapper">
+        {cards.map((card: Icard, key: number) => (
+          <FormCard {...card} key={key} />
+        ))}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
