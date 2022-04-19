@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './form.css';
 import { InputCheckbox } from './components/input/checkbox/checkbox';
 import { InputDate } from './components/input/date/date';
@@ -26,8 +26,15 @@ export const Form: React.FC<IProps> = ({ createCard }) => {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
-  } = useForm<MyInputTypes>();
+    formState: { errors, isDirty },
+  } = useForm<MyInputTypes>({ reValidateMode: 'onChange', mode: 'onSubmit' });
+
+  const { formState } = useForm<MyInputTypes>();
+  const [isValid, setIsValid] = useState<boolean>(true);
+  useEffect(() => {
+    setIsValid(Object.keys(errors).length === 0);
+  }, [formState, errors]);
+
   const onSubmit = (data: MyInputTypes) => {
     createCard(data);
     reset();
@@ -72,7 +79,12 @@ export const Form: React.FC<IProps> = ({ createCard }) => {
         />
       </div>
 
-      <input type="submit" className="form__submit" value="Submit" />
+      <input
+        type="submit"
+        className="form__submit"
+        value="Submit"
+        disabled={!isDirty || !isValid}
+      />
     </form>
   );
 };
